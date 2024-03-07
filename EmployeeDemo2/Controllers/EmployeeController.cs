@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NuGet.Protocol;
 using System.Drawing;
+using EmployeeDemo.web.Views.Shared.Components.SearchBar;
 
 namespace EmployeeDemo.web.Controllers
 {
@@ -23,41 +24,43 @@ namespace EmployeeDemo.web.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        //public async Task<IActionResult> Index(string Search)
-        //{
-        //    if (!string.IsNullOrEmpty(Search))
-        //    {
-        //        var employee = await _employeesService.GetEmployeeByName(Search);
-        //        var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
-        //        return View(Employeedata);
-        //    }
-        //    else
-        //    {
-        //        var employee = await _employeesService.GetAllEmployees();
-        //        var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
-        //        return View("Index",Employeedata);
-        //    }
-        //}
-
-        public async Task<IActionResult> Index(string Search)
+        public async Task<IActionResult> Index(string SearchText)
         {
-            Func<Employee, bool> searchPredicate;
-
-            if (!string.IsNullOrEmpty(Search))
+            SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee" , SearchText = SearchText};
+            ViewBag.SearchPager = SearchPager;
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                searchPredicate = e => e.FirstName.Contains(Search);
+                var employee = await _employeesService.GetEmployeeByName(SearchText);
+                var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
+                return View(Employeedata);
             }
             else
             {
-                searchPredicate = e => true;
+                var employee = await _employeesService.GetAllEmployees();
+                var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
+                return View("Index", Employeedata);
             }
-
-            var employees = await _employeesService.GetAllEmployees();
-            var filteredEmployees = employees.Where(searchPredicate).ToList();
-
-            var Employeedata = _mapper.Map<List<EmployeeModelView>>(filteredEmployees);
-            return View("Index", Employeedata);
         }
+
+        //public async Task<IActionResult> Index(string Search)
+        //{
+        //    Func<Employee, bool> searchPredicate;
+
+        //    if (!string.IsNullOrEmpty(Search))
+        //    {
+        //        searchPredicate = e => e.FirstName.Contains(Search);
+        //    }
+        //    else
+        //    {
+        //        searchPredicate = e => true;
+
+        //    }
+        //    var employees = await _employeesService.GetAllEmployees();
+        //    var filteredEmployees = employees.Where(searchPredicate).ToList();
+
+        //    var Employeedata = _mapper.Map<List<EmployeeModelView>>(filteredEmployees);
+        //    return View("Index", Employeedata);
+        //}
 
         public async Task<IActionResult> UpSert(int? id)
         {
