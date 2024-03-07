@@ -1,0 +1,235 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+footer{
+    background-color: white;
+    color: black;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+td.details{
+    border-collapse:collapse;
+}
+
+textarea{
+    height: 200px;
+    width: 475PX
+}
+
+@charset "UTF-8";
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+.pcs:after {
+    content: " pcs";
+}
+
+.cur:before {
+    content: "$";
+}
+
+.per:after {
+    content: "%";
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0.2em 2em;
+}
+
+img:hover {
+    transform: scale(2.5);
+}
+
+a:hover ,button:hover{
+    transform: scale(1.5);
+}
+
+table {
+    width: 100%;
+}
+
+    table th {
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+
+    table th, table td {
+        padding: 0.4em;
+    }
+
+    table.fold-table > tbody > tr.view td, table.fold-table > tbody > tr.view th {
+        cursor: pointer;
+    }
+
+        table.fold-table > tbody > tr.view td:first-child,
+        table.fold-table > tbody > tr.view th:first-child {
+            position: relative;
+            padding-left: 20px;
+        }
+
+            table.fold-table > tbody > tr.view td:first-child:before,
+            table.fold-table > tbody > tr.view th:first-child:before {
+                position: absolute;
+                top: 50%;
+                left: 5px;
+                width: 9px;
+                height: 16px;
+                margin-top: -8px;
+                font: 16px fontawesome;
+                color: #000;
+                content: "";
+                transition: all 0.3s ease;
+            }
+
+    table.fold-table > tbody > tr.view:nth-child(4n-1) {
+        background: #dedcdc;
+    }
+
+    table.fold-table > tbody > tr.view:hover {
+        background: #000;
+        color: White;
+        transform: scale(1.05);
+    }
+
+    table.fold-table > tbody > tr.view.open {
+        background: #000;
+        color: white;
+    }
+
+        table.fold-table > tbody > tr.view.open td:first-child:before, table.fold-table > tbody > tr.view.open th:first-child:before {
+            transform: rotate(-180deg);
+            color: #000;
+        }
+
+    table.fold-table > tbody > tr.fold {
+        display: none;
+    }
+
+        table.fold-table > tbody > tr.fold.open {
+            display: table-row;
+        }
+
+.fold-content {
+    padding: 0.5em;
+}
+
+    .fold-content h3 {
+        margin-top: 0;
+    }
+
+    .fold-content > table {
+        border: 2px solid #000;
+    }
+
+        .fold-content > table > tbody tr:nth-child(even) {
+            background: #000;
+        }
+        .fold{
+            color: black;
+            border: 5px solid #000;
+        }
+        .fold:hover{
+            background-color: #000;
+            color: white;
+        }
+
+.loader {
+    backdrop-filter: blur(100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.loaderimage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+#data {
+    display: none;
+}
