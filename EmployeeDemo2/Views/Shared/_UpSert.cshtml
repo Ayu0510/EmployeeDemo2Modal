@@ -5,7 +5,7 @@
      <div class="modal-content">
     <h2 class="p-4">
         <div class="row g-3 modal-header">
-                    <div id="modelTitle" class="model-Title col-md-11"></div>
+                    <div id="modelTitle" class="model-Title col-md-11">@(Model != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -93,10 +93,14 @@
                 </div>
                 <div class="col-md-10">
                     <div class="card imgholder">
-                        @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File" } })
+                                @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File", @onchange = "loadFile(event)" } })
                         @if (Model != null)
                         {
                             <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
+                        }
+                        else
+                        {
+                            <img src="" alt="" width="200" height="200" id="output">
                         }
                     </div>
                 </div>
@@ -137,14 +141,22 @@
                 </div>
             </div>
             <hr class="hr hr-blurry" />
-            <div class="col-md-6 p-4"></div>
-            <div class="col-md-6 float-right">
-                <div class="col-md-6 float-right">
-                    <button type="reset" class="btn btn-danger" id="resetForm">reset</button>
-                    <button type="submit" class="btn btn-primary submit" id="saveEmployee">submit</button>
-                    <!-- </div> -->
-                    <!-- <div class="col-md-6"> -->
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <div class="row">
+                <div class="col-md-6 p-4"></div>
+                <div class="col-md-6 row text-right">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <button type="reset" class="btn btn-danger" id="resetForm">reset</button>
+                        @if (Model != null)
+                        {
+                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">submit</button>
+                        }
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -153,7 +165,6 @@
     </div>
 </div>
 @section SCRIPTS {
-     <script src="~/js/skillAdd.js"></script>
     @{
         <PARTIAL NAME="_VALIDATIONSCRIPTSPARTIAL" />
     }

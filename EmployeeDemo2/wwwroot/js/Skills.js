@@ -14,7 +14,7 @@ function addToSkill(skill) {
         "type": "button",
         "id": value,
         "value": value,
-        "class": "btn btn-light float-right"
+        "class": "btn btn-light text-right"
     }).on('click', function () {
 
         removeSkills(this.value);
@@ -66,3 +66,11 @@ function addSkills() {
     hiddenInput.value = skillsArray
     $('#skills').val("");
 }
+
+var loadFile = function (event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+};

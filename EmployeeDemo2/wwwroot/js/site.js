@@ -13,6 +13,7 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
+
     $(".fold-table .view").on("click", function () {
         $(this).toggleClass("open").next(".fold").toggleClass("open");
     });
@@ -60,6 +61,7 @@ function loaddata() {
         }
     })
 }
+
 
 function skillArray() {
     return skillsArray = []

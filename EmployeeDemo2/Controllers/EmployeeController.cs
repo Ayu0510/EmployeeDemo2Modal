@@ -24,31 +24,55 @@ namespace EmployeeDemo.web.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string SearchText)
+        public async Task<IActionResult> Index(string SearchText, int pg = 1)
         {
-            SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee" , SearchText = SearchText};
+            SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee", SearchText = SearchText };
             ViewBag.SearchPager = SearchPager;
+            const int pageSize = 5;
+            if (pg < 1)
+            {
+                pg = 1;
+            }
+
+            Func<Employee, bool> searchPredicate;
+
             if (!string.IsNullOrEmpty(SearchText))
             {
-                var employee = await _employeesService.GetEmployeeByName(SearchText);
-                var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
-                return View(Employeedata);
+                searchPredicate = e => e.FirstName.Contains(SearchText) 
+                || e.LastName.Contains(SearchText) 
+                || e.Email.Contains(SearchText,StringComparison.OrdinalIgnoreCase);
             }
             else
             {
-                var employee = await _employeesService.GetAllEmployees();
-                var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
-                return View("Index", Employeedata);
+                searchPredicate = e => true;
+
             }
+            var employee = await _employeesService.GetAllEmployees();
+            var FilteredEmployee = employee.Where(searchPredicate).ToList();
+            var Employeedata = _mapper.Map<List<EmployeeModelView>>(FilteredEmployee);
+            int recsCount = Employeedata.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = Employeedata.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            if(SearchText != null)
+            {
+                TempData["success"] = "Employee Searched Successfully";
+            }
+            return View(data);
+
         }
 
-        //public async Task<IActionResult> Index(string Search)
+        //public async Task<IActionResult> Index(string SearchText)
         //{
+        //    SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee", SearchText = SearchText };
+        //    ViewBag.SearchPager = SearchPager;
+
         //    Func<Employee, bool> searchPredicate;
 
-        //    if (!string.IsNullOrEmpty(Search))
+        //    if (!string.IsNullOrEmpty(SearchText))
         //    {
-        //        searchPredicate = e => e.FirstName.Contains(Search);
+        //        searchPredicate = e => e.FirstName.Contains(SearchText) || e.LastName.Contains(SearchText) || e.Email.Contains(SearchText);
         //    }
         //    else
         //    {
@@ -134,7 +158,7 @@ namespace EmployeeDemo.web.Controllers
                     var EmployeeAddMapper = _mapper.Map<Employee>(employee);
                     EmployeeAddMapper.Skills = skillList;
                     var EmployeeAdd = _employeesService.AddEmployee(EmployeeAddMapper);
-                    return RedirectToAction("Index","Employee");
+                    TempData["success"] = "Employee Inserted Successfully";
                 }
                 else
                 {
@@ -146,8 +170,9 @@ namespace EmployeeDemo.web.Controllers
                     var EmployeeUpdateMap = _mapper.Map<Employee>(employee);
                     EmployeeUpdateMap.Skills = skillList;
                     var EmployeeUpdate = _employeesService.UpdateEmployee(EmployeeUpdateMap);
-                    return RedirectToAction("Index", "Employee");
+                    TempData["success"] = "Employee Updated Successfully";
                 }
+                return RedirectToAction("Index", "Employee");
             }
             else
             {
@@ -167,6 +192,7 @@ namespace EmployeeDemo.web.Controllers
                     System.IO.File.Delete(path);
                 }
             }
+            TempData["success"] = "Employee Deleted Successfully";
             return RedirectToAction("Index","Employee");
         }
 

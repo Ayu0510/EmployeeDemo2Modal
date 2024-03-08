@@ -1,9 +1,19 @@
 ﻿@model EmployeeModelView;
+@{
+    if(Model != null)
+    {
+        ViewData["Title"] = "Update";
+    }
+    else
+    {
+        ViewData["Title"] = "Insert";
+    }
+}
 <div id="employeeAddAndEdit"
      class="container-fluid me-5 px-5 p-5 animate__animated animate__fadeInDown animate__fast float-right">
     <h2 class="p-4">
         <div class="row g-3">
-            <div id="modelTitle" class="col-md-11"></div>
+            <div id="modelTitle" class="col-md-11">@(Model != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
         </div>
     </h2>
@@ -95,6 +105,10 @@
                         {
                             <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
                         }
+                        else
+                        {    
+                            <img src="" alt="" width="200" height="200" id="output">
+                        }
                     </div>
                 </div>
             </div>
@@ -134,14 +148,22 @@
                 </div>
             </div>
             <hr class="hr hr-blurry" />
-            <div class="col-md-6 p-4"></div>
-            <div class="col-md-6 float-right">
-                <div class="col-md-6 float-right">
-                    <button type="reset" class="btn btn-danger" id="resetForm">reset</button>
-                    <button type="submit" class="btn btn-primary submit" id="saveEmployee">submit</button>
-                    <!-- </div> -->
-                    <!-- <div class="col-md-6"> -->
-                    <a asp-controller="Employee" asp-action="Index" type="button" rel="modal:close" class="btn btn-danger">close</a>
+            <div class="row">
+                <div class="col-md-6 p-4"></div>
+                <div class="col-md-6 row text-right">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <button type="reset" class="btn btn-danger" id="resetForm">reset</button>
+                        @if (Model != null)
+                        {
+                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">submit</button>
+                        }
+                        <a asp-controller="Employee" asp-action="Index" type="button" rel="modal:close" class="btn btn-danger">close</a>
+                    </div>
                 </div>
             </div>
         </form>
