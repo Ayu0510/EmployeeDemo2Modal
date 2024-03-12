@@ -1,126 +1,137 @@
 ﻿@model EmployeeModelView;
+<partial name="_Notification" />
+@* <script src="~/js/Employee.js"></script> *@
+<script src="~/js/Validate.js"></script>
+
 <div id="employeeAddAndEdit"
      class="modal fade container-fluid me-5 px-5 p-5 animate__animated animate__fadeInDown animate__fast float-right">
      <div class="modal-dialog modal-xl">
      <div class="modal-content">
     <h2 class="p-4">
         <div class="row g-3 modal-header">
-                    <div id="modelTitle" class="model-Title col-md-11">@(Model != null ? "Update" : "Create") EmployeeData</div>
+                    <div id="modelTitle" class="model-Title col-md-11">@(Model.Id != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
     </h2>
     <hr class="hr hr-blurry" />
     <div class="Add-employee modal-body">
-        <form asp-controller="Employee" asp-action="Upsert" class="row g-3" id="myForm" method="post" enctype="multipart/form-data">
+        <form asp-controller="Employee" asp-action="UpSertPartial" class="row g-3" id="myForm" method="post" enctype="multipart/form-data">
             @* <div asp-validation-summary="All" class="text-danger"></div> *@
             @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @type = "hidden" } })
             @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @type = "hidden" } })
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.FirstName)
                 </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "firstname", @name = "firstname" } })
+                <div class="col-md-9">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control nat-required", @id = "firstname", @name = "firstname" } })
                     @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.LastName)
                 </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @id = "LastName", @name = "LastName" } })
+                <div class="col-md-9">
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control nat-required", @id = "lastName", @name = "LastName" } })
                     @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.Email)
                 </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email", @name = "Email" } })
+                <div class="col-md-9">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control nat-required nat-email", @id = "email", @name = "Email" } })
                     @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.Gender)
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <span for="inputgender" class="form-span">MALE</span>
-                    @Html.RadioButtonFor(model => model.Gender, "Male", new { htmlAttributes = new { @class = "form gender", @id = "gender", @name = "gender", @type = "radio", @value = "Male" } })
+                            @Html.RadioButtonFor(model => model.Gender, "Male", new { @class = "form gender nat-required", @id = "gender", @name = "gender", @type = "radio", @value = "Male" })
                     <span for="inputgender" class="form-span">FEMALE</span>
-                    @Html.RadioButtonFor(model => model.Gender, "FeMale", new { htmlAttributes = new { @class = "form gender", @id = "gender", @name = "gender", @type = "radio", @value = "FeMale" } })
+                            @Html.RadioButtonFor(model => model.Gender, "FeMale", new { @class = "form gender nat-required", @id = "gender", @name = "gender", @type = "radio", @value = "FeMale" })
                     @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.DateOfBirth)
                 </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @id = "Date", @type = "Date" } })
+                <div class="col-md-9">
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control nat-required", @id = "DateOfBirth", @type = "Date" } })
                     @Html.ValidationMessageFor(model => model.DateOfBirth, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.DateOfJoining)
                 </div>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateOfJoining, new { htmlAttributes = new { @class = "form-control", @id = "Date", @type = "Date" } })
+                <div class="col-md-9">
+                            @Html.EditorFor(model => model.DateOfJoining, new { htmlAttributes = new { @class = "form-control nat-required", @id = "DateOfJoining", @type = "Date" } })
                     @Html.ValidationMessageFor(model => model.DateOfJoining, null, new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.Designation)
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     @Html.DropDownListFor(model => model.Designation, new List<SelectListItem>{
                     new SelectListItem{Text="Select",Value=""},
                     new SelectListItem{Text="Jr. Developer"},
                     new SelectListItem{Text="Sr. Developer"},
                     new SelectListItem{Text="Project Manager"},
-                    }, new { @class = "form-select" })
+                            }, new { @class = "form-select nat-required", @id = "designation" })
                     @Html.ValidationMessageFor(model => model.Designation, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-6 row g-3">
-                <div class="col-md-2">
-                    @Html.LabelFor(model => model.Image)
-                </div>
-                <div class="col-md-10">
-                    <div class="card imgholder">
-                                @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File", @onchange = "loadFile(event)" } })
-                        @if (Model != null)
-                        {
-                            <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
-                        }
-                        else
-                        {
-                            <img src="" alt="" width="200" height="200" id="output">
-                        }
+                    <div class="col-md-6 row g-3" id="mainDiv">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Image)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card imgholder" id="imgDiv">
+                                @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File", @onchange = "loadFile(event),showImg()" } })
+                                <div class="row">
+                                    <div class="col-6 p-4 pt-3 pe-lg-5">
+                                        @if (Model.Id != null)
+                                        {
+                                            <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
+                                        }
+                                        else
+                                        {
+                                            <img src="" alt="" width="200" height="200" id="output" onerror="hideImg()">
+                                        }
+                                    </div>
+                                    <div class="col-6 m-0 p-0">
+                                        <button type="button" class="btn btn-close pt-4" id="ImgDetach" onclick="ImgDelete()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
-                    <span for="skills" class="form-span">Skill:</span>
+                <div class="col-md-3">
+                    <label for="skills" class="form-span">Skill:</label>
                 </div>
-                <div class="col-md-10 row g-3">
-                    <div class="col-md-10">
+                <div class="col-md-9 row g-3">
+                    <div class="col-md-9">
                         <input type="text" class="form-control" id="skills">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="button" class="form-control" id="addskills" onclick="addSkills();" value="ADD">
                     </div>
                 </div>
                 <div>
-                    <li class="list-group-item">Skills</li>
+                            <li class="list-group-item"><label>Skills</label></li>
                     <ui class="list-group" id="myList">
-                        @if (Model != null)
+                        @if (Model.Id!= null)
                         {
                             @foreach (var skill in Model.AllSkills)
                             {
@@ -132,34 +143,35 @@
                 </div>
             </div>
             <div class="col-md-6 row g-3">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @Html.LabelFor(model => model.Description)
                 </div>
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-md-9">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control nat-required", @id = "details" })
                     @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
                 </div>
             </div>
             <hr class="hr hr-blurry" />
+                </form>
             <div class="row">
                 <div class="col-md-6 p-4"></div>
                 <div class="col-md-6 row text-right">
                     <div class="col-4"></div>
                     <div class="col-8">
                         <button type="reset" class="btn btn-danger" id="resetForm">reset</button>
-                        @if (Model != null)
+                        @if (Model.Id != null)
                         {
-                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">Update</button>
+                                <button type="submit" class="btn btn-primary submit" data-save="modal" id="saveEmployee">Update</button>
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary submit" id="saveEmployee">submit</button>
+                            <button type="submit" class="btn btn-primary submit" data-save="modal" id="saveEmployee">submit</button>
                         }
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-        </form>
+        
     </div>
     </div>
     </div>

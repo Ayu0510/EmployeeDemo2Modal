@@ -1,7 +1,7 @@
 ﻿@using EmployeeDemo.web.Views.Shared.Components.SearchBar
 @model SPager
-<form class="d-flex" role="search" asp-controller="@Model.Controller" asp-action="@Model.Action">
-    <input class="form-control me-2" type="search" placeholder="Search" name="SearchText" id="search" value="@Model.SearchText">
-    <button type="submit">Search</button>
+<form role="search" asp-controller="@Model.Controller" asp-action="@Model.Action">
+    <input class="form-control bg-primary-subtle SearchText" type="search" placeholder="Search" name="SearchText" id="search" value="@Model.SearchText">
+    <button class="btn btn-white bg-dark text-white form-control" type="submit">Search</button>
 </form>
-<a type="submit" class="btn btn-white bg-white" asp-controller="@Model.Controller" asp-action="@Model.Action">Show all</a>
+<a type="submit" class="btn btn-white bg-primary-subtle form-control" asp-controller="@Model.Controller" asp-action="@Model.Action">Show all</a>

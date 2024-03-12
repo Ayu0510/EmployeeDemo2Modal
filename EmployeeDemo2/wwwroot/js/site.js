@@ -1,25 +1,13 @@
 ﻿$(document).ready(function () {
     
     //$('#__table').DataTable({ pageLength: 5, lengthMenu:[5,10,15,20,25,30,35,40,45,50] });
-    $("#image").change(function () {
-        if (this.files && this.files[0]) {
-
-            let reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#output').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
+  
 
     $(".fold-table .view").on("click", function () {
         $(this).toggleClass("open").next(".fold").toggleClass("open");
     });
     loaddata();
 });
-
 
 //$('#__table').pagination({
 //    dataSource: [1, 2, 3, 4, 5, 6, 7],
@@ -41,17 +29,32 @@ $(function () {
             placeHoderElement.find('.modal').modal('show');
         })
     })
-    placeHoderElement.on("click", '[data-toggle="modal"]', function (event) {
-        var form = $(this).parents(".modal").find('myForm');
-        var actionurl = form.attr('action')
-        var url = '/Employee/' + actionurl;
-        var sendData = form.serialize();
-        $.post(url, sendData).done(function (data) {
-            placeHoderElement.find('.modal').modal('hide');
+    placeHoderElement.on('click', '[data-save="modal"]', function (event) {
+        
+        let IsValid = Validate("Add-employee");
+        if (IsValid == true) {
+            var form = $(this).parents(".modal").find('#myForm');
+            var actionurl = $('#myForm').attr('action')
+            var sendData = new FormData(form[0]);
+
+            $.ajax({
+                url: actionurl,
+                type: "POST",
+                data: sendData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    placeHoderElement.find(".modal").modal("hide");
+                }
+            })
             loaddata();
-        })
+        }
+        else {
+            placeHoderElement.find(".modal").modal("show");
+        }
     })
 })
+
 
 function loaddata() {
     $.ajax({

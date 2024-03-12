@@ -12,13 +12,13 @@
 <div id="employeeAddAndEdit"
      class="container-fluid me-5 px-5 p-5 animate__animated animate__fadeInDown animate__fast float-right">
     <h2 class="p-4">
-        <div class="row g-3">
+        <div class="modal-content row g-3">
             <div id="modelTitle" class="col-md-11">@(Model != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
         </div>
     </h2>
     <hr class="hr hr-blurry" />
-    <div class="Add-employee">
+    <div class="Add-employee modal-body">
         <form class="row g-3" id="myForm" method="post" enctype="multipart/form-data">
             @* <div asp-validation-summary="All" class="text-danger"></div> *@
             @Html.EditorFor(model => model.Id,new {htmlAttributes = new{@type = "hidden"}})
@@ -94,21 +94,28 @@
                     @Html.ValidationMessageFor(model => model.Designation, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-6 row g-3">
+            <div class="col-md-6 row g-3" id="mainDiv">
                 <div class="col-md-2">
                     @Html.LabelFor(model => model.Image)
                 </div>
                 <div class="col-md-10">
-                    <div class="card imgholder">
-                        @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File" } })
-                        @if(Model != null)
-                        {
-                            <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
-                        }
-                        else
-                        {    
-                            <img src="" alt="" width="200" height="200" id="output">
-                        }
+                    <div class="card imgholder" id="imgDiv">
+                        @Html.EditorFor(model => model.ImageFile, new { htmlAttributes = new { @class = "form-control", @id = "image", @type = "File", @onchange = "loadFile(event),showImg()" } })
+                        <div class="row">
+                            <div class="col-6 p-4 pt-3 pe-lg-5">
+                                @if (Model != null)
+                                {
+                                    <img src="@("/Image/"+Model.Image)" alt="" width="200" height="200" id="output">
+                                }
+                                else
+                                {
+                                    <img src="" alt="" width="200" height="200" id="output" onerror="hideImg()">
+                                }
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <button type="button" class="btn btn-close pt-4" id="ImgDetach" onclick="ImgDelete()"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

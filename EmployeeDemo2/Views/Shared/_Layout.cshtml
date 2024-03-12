@@ -16,6 +16,7 @@
     <script src="https://pagination.js.org/dist/2.6.0/pagination.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/Skills.js" asp-append-version="true"></script>
+    <script src="~/js/ImagePreview.js" asp-append-version="true"></script>
     <script src="~/js/Comman.js" asp-append-version="true"></script>
 </head>
 <body>
@@ -42,7 +43,7 @@
                         <a asp-controller="Employee" asp-action="UpSert" rel="modal:open" class="btn btn-outline-black text-black bg-light" id="addEmployeeBtn">
                             <i class="bi bi-plus-circle-fill"></i> Add Employees
                         </a>
-                        <button asp-route-modalId="1" type="button" class="btn btn-outline-black text-black bg-light" data-toggle="ajax-modal" data-target="#employeeAddAndEdit" data-url="@Url.Action("_UpSert")">
+                        <button asp-route-modalId="1" type="button" class="btn btn-outline-black text-black bg-light" data-toggle="ajax-modal" data-target="#employeeAddAndEdit" data-url="@Url.Action("UpSertPartial")">
                             <i class="bi bi-plus-circle-fill"></i> Add Employees modal
                         </button>
                     </div>
@@ -50,7 +51,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="">
         <partial name="_Notification" />
         <div id="PlaceHolder"></div>
         <main role="main" class="pb-3">

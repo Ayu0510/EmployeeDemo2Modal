@@ -27,7 +27,6 @@ function addToSkill(skill) {
     hiddenInput.value = skillsArray
 }
 function removeSkills(clickedButtonId) {
-    debugger
     let sk = clickedButtonId;
     let index = skillsArray.indexOf(sk);
     if (index !== -1) {
@@ -67,10 +66,3 @@ function addSkills() {
     $('#skills').val("");
 }
 
-var loadFile = function (event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function () {
-        URL.revokeObjectURL(output.src) // free memory
-    }
-};

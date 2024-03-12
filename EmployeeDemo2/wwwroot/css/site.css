@@ -58,12 +58,35 @@ body {
     padding: 0.2em 2em;
 }
 
+.sortAncer{
+    text-decoration: none;
+    text-justify: auto;
+    font-weight: bold;
+    font-variant-caps: normal;
+}
+
+.SearchText:hover, .SearchText:active {
+    transform: scale(1.05);
+}
+
 img:hover {
     transform: scale(2.5);
 }
+.error{
+    color: red;
+}
+
+label{
+    font-weight: bold;
+}
 
 a:hover ,button:hover{
-    transform: scale(1.5);
+    transform: scale(1.05);
+}
+
+.form-control,.form-select,option{
+    border: 1px solid;
+    background-color:antiquewhite;
 }
 
 table {
