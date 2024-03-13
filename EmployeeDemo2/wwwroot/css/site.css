@@ -8,6 +8,15 @@ html {
     }
 }
 
+.bg{
+    background: rgba(0,0,0,0.4) url('../Image/lego-2539844.jpg');
+    background-blend-mode:darken;
+    background-size:cover;
+}
+h1.display-4{
+    padding-top: 100px;
+    color:aliceblue;
+}
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -77,6 +86,7 @@ img:hover {
 }
 
 label{
+    color:black;
     font-weight: bold;
 }
 

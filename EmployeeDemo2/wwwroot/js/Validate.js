@@ -1,5 +1,5 @@
 ﻿function Validate(employeeClassname) {
-    
+    debugger
     let isValid = true;
     const inputs = $("." + employeeClassname).find(".nat-required");
     const inputemail = $("." + employeeClassname).find(".nat-email");
@@ -8,6 +8,7 @@
 
     inputs.each(function (index, inputs) {
         if (inputs.type == "text" || inputs.type == "textarea" || inputs.type == "select-one" || inputs.type == "date" || inputs.type == "email") {
+            
             if ((inputs.value) == "" || (inputs.value) == "Select") {
                 isValid = false;
 
@@ -15,7 +16,6 @@
                 registerKeyUpChangeEvent(inputs);
             }
             else {
-                setErrorMsg(inputs, ShowHideError);
                 registerKeyUpChangeEvent(inputs);
             }
         }

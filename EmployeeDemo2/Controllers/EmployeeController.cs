@@ -255,7 +255,7 @@ namespace EmployeeDemo.web.Controllers
             else
             {
                     
-                    return PartialView(employee);
+                    return View("Index");
             }
         }
 

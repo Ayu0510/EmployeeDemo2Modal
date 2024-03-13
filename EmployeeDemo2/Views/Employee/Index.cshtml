@@ -90,10 +90,10 @@
     </div>
 </div>
 
-<div class="container">
+<div class="bg-white">
     @if(pager.TotalPages > 0)
     {
-        <ul class="pagination justify-content-end">
+        <ul class="pagination container justify-content-end">
             @for (var pge = pager.StartPage; pge <= pager.EndPage;pge++)
             {
                 <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
