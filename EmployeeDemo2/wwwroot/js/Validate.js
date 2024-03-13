@@ -1,5 +1,5 @@
 ﻿function Validate(employeeClassname) {
-    debugger
+    
     let isValid = true;
     const inputs = $("." + employeeClassname).find(".nat-required");
     const inputemail = $("." + employeeClassname).find(".nat-email");
@@ -22,15 +22,24 @@
     });
 
     inputemail.each(function (index, inputemail) {
-        if (inputemail.type == "email") {
+        
+        if (inputemail.type == "text") {
             $(inputemail).next().remove("span.error");
             let validemail = emailValid(inputemail);
-            if ((inputemail.value) != "" && validemail == true) {
-                setErrorMsg(inputemail, ShowHideError);
+            
+            if ((inputemail.value) != "" && validemail == false) {
+                isValid = false;
+                setErrorMsg(inputemail, ShowHideErrorEmail);
+                /*setErrorMsg(inputemail, ShowHideError);*/
                 registerKeyUpChangeEventOnEmail(inputemail);
-            } else {
+            }
+            else if ((inputemail.value) == "") {
                 isValid = false;
                 setErrorMsg(inputemail, ShowHideError);
+                registerKeyUpChangeEventOnEmail(inputemail);
+            }
+            else {
+                
                 registerKeyUpChangeEventOnEmail(inputemail);
             }
         }
@@ -46,6 +55,16 @@ function setErrorMsg(input, callBack) {
 function ShowHideError(input) {
     
     const errorMessage = $(input).attr("data-val-required");
+    if (errorMessage != null) {
+        $(input).after("<span class='error'>" + errorMessage + "</span>").show();
+    }
+    else {
+        $(input).next().find(".error").remove();
+    }
+};
+function ShowHideErrorEmail(input) {
+    
+    const errorMessage = $(input).attr("validMessage");
     if (errorMessage != null) {
         $(input).after("<span class='error'>" + errorMessage + "</span>").show();
     }
@@ -76,20 +95,30 @@ function eventMessage(input) {
 }
 
 function registerKeyUpChangeEventOnEmail(input) {
+
     $(input).keyup(function () {
-        const validemail = emailValid(input)
+        
         $(input).next().remove("span.error");
-        const errorMessage = $(input).attr("validMessage");
-        if (validemail == true) {
-            $(input).next().remove("span.error");
-        }
-        else {
+        if ($(input).val() == "") {
+            const errorMessage = $(input).attr("data-val-required");
             $(input).after("<span class='error'>" + errorMessage + "</span>").show();
         }
+        else {
+            const validemail = emailValid(input);
+            const errorMessage = $(input).attr("validMessage");
+            if (validemail == true) {
+                $(input).next().remove("span.error");
+            }
+            else {
+                $(input).after("<span class='error'>" + errorMessage + "</span>").show();
+            }
+        }
+        
     });
 }
 
 function emailValid(input) {
+    
     if ($(input).val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
         return true;
     }

@@ -8,6 +8,10 @@ html {
     }
 }
 
+.card{
+    background-color:transparent;
+}
+
 .bg{
     background: rgba(0,0,0,0.4) url('../Image/lego-2539844.jpg');
     background-blend-mode:darken;
@@ -94,9 +98,9 @@ a:hover ,button:hover{
     transform: scale(1.05);
 }
 
-.form-control,.form-select,option{
+.form-control, .form-select, option, li.list-group-item {
     border: 1px solid;
-    background-color:antiquewhite;
+    background-color: antiquewhite;
 }
 
 table {
@@ -114,6 +118,7 @@ table {
 
     table.fold-table > tbody > tr.view td, table.fold-table > tbody > tr.view th {
         cursor: pointer;
+        color:white;
     }
 
         table.fold-table > tbody > tr.view td:first-child,
@@ -137,13 +142,14 @@ table {
             }
 
     table.fold-table > tbody > tr.view:nth-child(4n-1) {
-        background: #dedcdc;
+        background: rgba(0,0,0,0.5);
+        color: white;
     }
 
     table.fold-table > tbody > tr.view:hover {
-        background: #000;
+        background: rgba(0,0,0,0.8);
         color: White;
-        transform: scale(1.05);
+        transform: scale(1.01);
     }
 
     table.fold-table > tbody > tr.view.open {
@@ -180,11 +186,10 @@ table {
             background: #000;
         }
         .fold{
-            color: black;
+            color: white;
             border: 5px solid #000;
         }
         .fold:hover{
-            background-color: #000;
             color: white;
         }
 

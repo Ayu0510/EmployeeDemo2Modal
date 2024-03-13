@@ -4,18 +4,18 @@
 <script src="~/js/Validate.js"></script>
 
 <div id="employeeAddAndEdit"
-     class="modal fade container-fluid me-5 px-5 p-5 animate__animated animate__fadeInDown animate__fast float-right">
+     class="modal fade card container-fluid me-5 px-5 p-5 animate__animated animate__fadeInDown animate__fast float-right">
      <div class="modal-dialog modal-xl">
      <div class="modal-content">
     <h2 class="p-4">
-        <div class="row g-3 modal-header">
-                    <div id="modelTitle" class="model-Title col-md-11">@(Model.Id != null ? "Update" : "Create") EmployeeData</div>
+        <div class="row g-3 modal-header card-header">
+                    <div id="modelTitle" class="model-Title card-title col-md-11">@(Model.Id != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
     </h2>
-    <hr class="hr hr-blurry" />
-    <div class="Add-employee modal-body">
+    
+    <div class="Add-employee modal-body card-body">
         <form asp-controller="Employee" asp-action="UpSertPartial" class="row g-3" id="myForm" method="post" enctype="multipart/form-data">
             @* <div asp-validation-summary="All" class="text-danger"></div> *@
             @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @type = "hidden" } })
@@ -43,7 +43,7 @@
                     @Html.LabelFor(model => model.Email)
                 </div>
                 <div class="col-md-9">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control nat-required nat-email", @id = "email", @name = "Email" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control nat-required nat-email", @id = "email", @name = "Email", @validMessage="Please Enter Valid Email Address." } })
                     @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
                 </div>
             </div>
@@ -151,9 +151,8 @@
                     @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <hr class="hr hr-blurry" />
                 </form>
-            <div class="row">
+            <div class="row card-footer">
                 <div class="col-md-6 p-4"></div>
                 <div class="col-md-6 row text-right">
                     <div class="col-4"></div>
