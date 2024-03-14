@@ -1,22 +1,15 @@
-﻿@using EmployeeDemo.web.Models;
-@model List<EmployeeModelView>;
+﻿
 <!-- Display Users-->
 @{
     <partial name="_Notification" />
 
     ViewData["Title"] = "Display";
-
-    Pager pager = new Pager();
-    int pageNo = 0;
-    if(ViewBag.Pager != null)
-    {
-        pager = ViewBag.Pager;
-        pageNo = pager.CurrentPage;
-    }
 }
-<vc:Search-Bar search-pager="@ViewBag.SearchPager">
-
-</vc:Search-Bar>
+<form role="search">
+    <input class="form-control bg-transparent SearchText" type="search" placeholder="Search" name="SearchText" id="search">
+    <button class="btn btn-white bg-transparent text-white form-control" type="button" onclick="paginationFunction()">Search</button>
+</form>
+<button onclick="paginationFunction()" type="button" class="btn text-bg-dark bg-transparent form-control">Show all</button>
 <div class="wrapper">
     <div id="PlaceHolder"></div>
     <div class="table-resposive">
@@ -25,28 +18,29 @@
                 <tr>
                     <th class="text-center" scope="col"></th>
                     <th class="text-center" scope="col">
-                        <a class="sortAncer" asp-action="Index" asp-route-sortOrder="@ViewData["Name"]" asp-route-pg="@pager.CurrentPage">Name</a>
+                        <button class="sortAncer bg-transparent" onclick="nameSort('name')" >Name</button>
                     </th>
                     <th class="text-center" scope="col">
-                        <a class="sortAncer" asp-action="Index" asp-route-sortOrder="@ViewData["Email"]" asp-route-pg="@pager.CurrentPage">Email</a>
+                        <button class="sortAncer bg-transparent" onclick="nameSort('email')">Email</button>
                     </th>
                     <th class="text-center" scope="col">
                         <a class="sortAncer" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Designation
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-sortOrder="@ViewData["Project Manager"]" asp-route-pg="@pager.CurrentPage">Project Manager</a></li>
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-sortOrder="@ViewData["Sr. Developer"]" asp-route-pg="@pager.CurrentPage">Sr. Developer</a></li>
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-sortOrder="@ViewData["Jr. Developer"]" asp-route-pg="@pager.CurrentPage">Jr. Developer</a></li>
+                            <li> <button class="sortAncer bg-transparent nav-link" onclick="nameSort('Project_Manager')">Project Manager</button></li>
+                            <li> <button class="sortAncer bg-transparent nav-link" onclick="nameSort('Sr_Developer')">Sr_Developer</button></li>
+                            <li> <button class="sortAncer bg-transparent nav-link" onclick="nameSort('Jr_Developer')">Jr_Developer</button></li>
                         </ul>
                     </th>
-                    <th class="text-center" scope="col"><a class="sortAncer" asp-action="Index" asp-route-sortOrder="@ViewData["Gender"]" asp-route-pg="@pager.CurrentPage">Gender</a></th>
+                            
+                    <th class="text-center" scope="col"><button class="sortAncer bg-transparent" onclick="nameSort('Gender')">Gender</button></th>
                     <th class="text-center" scope="col">Action</th>
                     @* <th></th> *@
                 </tr>
             </thead>
             <tbody id="employeedisplay" class="displaydata animate__animated animate__fadeInDown animate__fast float-right">
-                @if (Model != null)
+               @*  @if (Model != null)
                 {
                     @foreach (var employee in Model)
                     {
@@ -73,7 +67,7 @@
                                     <div><label>Skills:</label>@employee.SkillNames</div>
                                     <div><label>Description:</label>@employee.Description</div>
                                 </div>
-                            </td> *@
+                            </td> 
                         </tr>
                         <tr class="fold">
                             <td colspan="3">
@@ -84,22 +78,24 @@
                             </td>
                         </tr>
                     }
-                }
+                } *@
             </tbody>
         </table>
+        <div class="data-container"></div>
+        <div class="bg-white float" id="demo"></div>
     </div>
 </div>
 
-<div class="bg-white">
-    @if(pager.TotalPages > 0)
+<div class="bg-white" id="demo">
+@*     @if(pager.TotalPages > 0)
     {
         <ul class="pagination container justify-content-end">
             @for (var pge = pager.StartPage; pge <= pager.EndPage;pge++)
             {
                 <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Employee" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                    <button type="button" class="page-link" onclick=" pagination('/Employee/IndexApi?pg=@pge')">@pge</button>
                 </li>
             }
         </ul>
-    }
+    } *@
 </div>

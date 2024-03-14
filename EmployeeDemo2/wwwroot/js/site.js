@@ -1,12 +1,25 @@
 ﻿$(document).ready(function () {
     
     //$('#__table').DataTable({ pageLength: 5, lengthMenu:[5,10,15,20,25,30,35,40,45,50] });
-  
+
+    paginationFunction();
+    $(document).on("click", "#UpsertPartial", function () {
+        const employeeId = $(this).data('employee-id');
+        const url = 'Employee/UpSertPartial/' + employeeId;
+        loadModal(url);
+    });
+
+    function loadModal(url) {
+        const decodeUrl = decodeURIComponent(url);
+        $.get(decodeUrl).done(function (data) {
+            $('#PlaceHolder').html(data);
+            $('#PlaceHolder').find('.modal').modal('show');
+        });
+    }
 
     $(".fold-table .view").on("click", function () {
         $(this).toggleClass("open").next(".fold").toggleClass("open");
     });
-    loaddata();
 });
 
 //$('#__table').pagination({
@@ -17,6 +30,23 @@
 //        dataContainer.html(html);
 //    }
 //})
+
+var flag = 1;
+function nameSort(type) {
+
+    if (type == 'Gender' && flag == 0) {
+        paginationFunction('/Employee/GetAllEmployee?sortOrder=' + type + 'female_desc');
+        flag = 1;
+    }
+    else if (flag == 1) {
+        paginationFunction('/Employee/GetAllEmployee?sortOrder=' + type + '_desc');
+        flag = 0;
+    }
+    else {
+        paginationFunction('/Employee/GetAllEmployee');
+        flag = 1;
+    }
+}
 
 $(function () {
 
@@ -45,26 +75,15 @@ $(function () {
                 contentType: false,
                 success: function (data) {
                     placeHoderElement.find(".modal").modal("hide");
+                    pagination();
                 }
             })
-            loaddata();
         }
         else {
             placeHoderElement.find(".modal").modal("show");
         }
     })
 })
-
-
-function loaddata() {
-    $.ajax({
-        "url": "/Employee/GetAllEmployee",
-        success: function (data) {
-            $('#__table').append(data);
-        }
-    })
-}
-
 
 function skillArray() {
     return skillsArray = []

@@ -28,73 +28,79 @@ namespace EmployeeDemo.web.Controllers
         {
             SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee", SearchText = SearchText };
             ViewBag.SearchPager = SearchPager;
-            const int pageSize = 5;
-            if (pg < 1)
-            {
-                pg = 1;
-            }
-
-            Func<Employee, bool> searchPredicate;
-
-            if (!string.IsNullOrEmpty(SearchText))
-            {
-                searchPredicate = e => e.FirstName.Contains(SearchText) 
-                || e.LastName.Contains(SearchText) 
-                || e.Email.Contains(SearchText,StringComparison.OrdinalIgnoreCase);
-            }
-            else
-            {
-                searchPredicate = e => true;
-
-            }
-            var employee = await _employeesService.GetAllEmployees();
-            var FilteredEmployee = employee.Where(searchPredicate).ToList();
-            var Employeedata = _mapper.Map<List<EmployeeModelView>>(FilteredEmployee);
-            int recsCount = Employeedata.Count();
-            var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-            var data = Employeedata.Skip(recSkip).Take(pager.PageSize).ToList();
-
-            ViewData["Name"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["Email"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
-            ViewData["Project Manager"] = String.IsNullOrEmpty(sortOrder) ? "Project_Manager" : "";
-            ViewData["Sr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Sr._Developer" : "";
-            ViewData["Jr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Jr._Developer" : "";
-            ViewData["Gender"] = String.IsNullOrEmpty(sortOrder) ? "Gender" : "";
-            var employees = from e in data select e;
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    employees = employees.OrderByDescending(e => e.FirstName);
-                    break;
-                case "email_desc":
-                    employees = employees.OrderByDescending(e => e.Email);
-                    break;
-                case "Project_Manager":
-                    employees = employees.OrderByDescending(e => e.Designation == "Project Manager");
-                    break;
-                case "Sr._Developer":
-                    employees = employees.OrderByDescending(e => e.Designation == "Sr. Developer");
-                    break; 
-                case "Jr._Developer":
-                    employees = employees.OrderByDescending(e => e.Designation == "Jr. Developer");
-                    break;
-                case "Gender":
-                    employees = employees.OrderByDescending(e => e.Gender == "Male");
-                    break;
-                default:
-                    employees = employees.OrderBy(e => e.FirstName);
-                    break;
-            }
-
-            this.ViewBag.Pager = pager;
-            if(SearchText != null)
-            {
-                TempData["success"] = "Employee Searched Successfully";
-            }
-            return View(employees.ToList());
+            return View("Index");
         }
+        //public async Task<IActionResult> Index(string sortOrder,string SearchText, int pg = 1)
+        //{
+        //    SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee", SearchText = SearchText };
+        //    ViewBag.SearchPager = SearchPager;
+        //    const int pageSize = 5;
+        //    if (pg < 1)
+        //    {
+        //        pg = 1;
+        //    }
+
+        //    Func<Employee, bool> searchPredicate;
+
+        //    if (!string.IsNullOrEmpty(SearchText))
+        //    {
+        //        searchPredicate = e => e.FirstName.Contains(SearchText) 
+        //        || e.LastName.Contains(SearchText) 
+        //        || e.Email.Contains(SearchText,StringComparison.OrdinalIgnoreCase);
+        //    }
+        //    else
+        //    {
+        //        searchPredicate = e => true;
+
+        //    }
+        //    var employee = await _employeesService.GetAllEmployees();
+        //    var FilteredEmployee = employee.Where(searchPredicate).ToList();
+        //    var Employeedata = _mapper.Map<List<EmployeeModelView>>(FilteredEmployee);
+        //    int recsCount = Employeedata.Count();
+        //    var pager = new Pager(recsCount, pg, pageSize);
+        //    int recSkip = (pg - 1) * pageSize;
+        //    var data = Employeedata.Skip(recSkip).Take(pager.PageSize).ToList();
+
+        //    ViewData["Name"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        //    ViewData["Email"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+        //    ViewData["Project Manager"] = String.IsNullOrEmpty(sortOrder) ? "Project_Manager" : "";
+        //    ViewData["Sr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Sr._Developer" : "";
+        //    ViewData["Jr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Jr._Developer" : "";
+        //    ViewData["Gender"] = String.IsNullOrEmpty(sortOrder) ? "Gender" : "";
+        //    var employees = from e in data select e;
+
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            employees = employees.OrderByDescending(e => e.FirstName);
+        //            break;
+        //        case "email_desc":
+        //            employees = employees.OrderByDescending(e => e.Email);
+        //            break;
+        //        case "Project_Manager":
+        //            employees = employees.OrderByDescending(e => e.Designation == "Project Manager");
+        //            break;
+        //        case "Sr._Developer":
+        //            employees = employees.OrderByDescending(e => e.Designation == "Sr. Developer");
+        //            break; 
+        //        case "Jr._Developer":
+        //            employees = employees.OrderByDescending(e => e.Designation == "Jr. Developer");
+        //            break;
+        //        case "Gender":
+        //            employees = employees.OrderByDescending(e => e.Gender == "Male");
+        //            break;
+        //        default:
+        //            employees = employees.OrderBy(e => e.FirstName);
+        //            break;
+        //    }
+
+        //    this.ViewBag.Pager = pager;
+        //    if(SearchText != null)
+        //    {
+        //        TempData["success"] = "Employee Searched Successfully";
+        //    }
+        //    return View(employees.ToList());
+        //}
         public async Task<IActionResult> UpSert(int? id)
         {
             if(id == 0 || id == null)
@@ -272,17 +278,139 @@ namespace EmployeeDemo.web.Controllers
                 }
             }
             TempData["success"] = "Employee Deleted Successfully";
-            return RedirectToAction("Index","Employee");
+            return Json(id);
         }
 
         #region API CALLS
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployee()
+        public async Task<IActionResult> GetAllEmployee(string? sortOrder, string SearchText)
         {
+
+
+            Func<Employee, bool> searchPredicate;
+
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                searchPredicate = e => e.FirstName.Contains(SearchText)
+                || e.LastName.Contains(SearchText)
+                || e.Email.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                searchPredicate = e => true;
+
+            }
+
             var employee = await _employeesService.GetAllEmployees();
-            var Employeedata = _mapper.Map<List<EmployeeModelView>>(employee);
-            return Json(new { data = Employeedata});
+            var FilteredEmployee = employee.Where(searchPredicate).ToList();
+            var Employeedata = _mapper.Map<List<EmployeeModelView>>(FilteredEmployee);
+
+            var employees = from e in Employeedata select e;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(e => e.FirstName);
+                    break;
+                case "email_desc":
+                    employees = employees.OrderByDescending(e => e.Email);
+                    break;
+                case "Project_Manager_desc":
+                    employees = employees.OrderByDescending(e => e.Designation == "Project Manager");
+                    break;
+                case "Sr_Developer_desc":
+                    employees = employees.OrderByDescending(e => e.Designation == "Sr. Developer");
+                    break;
+                case "Jr_Developer_desc":
+                    employees = employees.OrderByDescending(e => e.Designation == "Jr. Developer");
+                    break;
+                case "Gender_desc":
+                    employees = employees.OrderByDescending(e => e.Gender == "Male");
+                    break;
+                case "Genderfemale_desc":
+                    employees = employees.OrderByDescending(e => e.Gender == "FeMale");
+                    break;
+                default:
+                    employees = employees.OrderBy(e => e.FirstName);
+                    break;
+            }
+
+            return Json(new { data = employees });
         }
+
+
+        public async Task<IActionResult> IndexApi(string sortOrder, string SearchText, int pg = 1)
+        {
+            SPager SearchPager = new SPager() { Action = "Index", Controller = "Employee", SearchText = SearchText };
+            ViewBag.SearchPager = SearchPager;
+            const int pageSize = 5;
+            if (pg < 1)
+            {
+                pg = 1;
+            }
+            
+            Func<Employee, bool> searchPredicate;
+
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                searchPredicate = e => e.FirstName.Contains(SearchText)
+                || e.LastName.Contains(SearchText)
+                || e.Email.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                searchPredicate = e => true;
+
+            }
+            var employee = await _employeesService.GetAllEmployees();
+            var FilteredEmployee = employee.Where(searchPredicate).ToList();
+            var Employeedata = _mapper.Map<List<EmployeeModelView>>(FilteredEmployee);
+            int recsCount = Employeedata.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = Employeedata.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            ViewData["Name"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["Email"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+            ViewData["Project Manager"] = String.IsNullOrEmpty(sortOrder) ? "Project_Manager" : "";
+            ViewData["Sr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Sr._Developer" : "";
+            ViewData["Jr. Developer"] = String.IsNullOrEmpty(sortOrder) ? "Jr._Developer" : "";
+            ViewData["Gender"] = String.IsNullOrEmpty(sortOrder) ? "Gender" : "";
+            var employees = from e in data select e;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(e => e.FirstName);
+                    break;
+                case "email_desc":
+                    employees = employees.OrderByDescending(e => e.Email);
+                    break;
+                case "Project_Manager":
+                    employees = employees.OrderByDescending(e => e.Designation == "Project Manager");
+                    break;
+                case "Sr._Developer":
+                    employees = employees.OrderByDescending(e => e.Designation == "Sr. Developer");
+                    break;
+                case "Jr._Developer":
+                    employees = employees.OrderByDescending(e => e.Designation == "Jr. Developer");
+                    break;
+                case "Gender":
+                    employees = employees.OrderByDescending(e => e.Gender == "Male");
+                    break;
+                default:
+                    employees = employees.OrderBy(e => e.FirstName);
+                    break;
+            }
+
+            this.ViewBag.Pager = pager;
+            if (SearchText != null)
+            {
+                TempData["success"] = "Employee Searched Successfully";
+            }
+            return Json(new { data = employees });
+        }
+
         #endregion
     }
 }

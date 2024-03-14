@@ -103,6 +103,20 @@ a:hover ,button:hover{
     background-color: antiquewhite;
 }
 
+.__table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px auto;
+    tr{
+        &.child{
+            &.hidden{
+                display: none;
+                color:white;
+            }
+        }
+    }
+}
+
 table {
     width: 100%;
 }
