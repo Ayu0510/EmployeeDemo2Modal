@@ -40,60 +40,10 @@ function deleteEmployeeAlert(url) {
                 url: url,
                 type: "DELETE",
                 success: function (data) {
-                    debugger
-                    pagination();
+                    paginationFunction();
                 }
             })
         }
     });
 
 }
-
-$(document).ready(function () {
-
-    
-
-
-    $(".fold-table .view #view").on("click", function () {
-        debugger
-        $(this).toggleClass("open").next(".fold").toggleClass("open");
-    });
-
-        var placeHoderElement = $('#PlaceHolder');
-        $('.upsert').click( function () {
-            var url = $(this).data('url');
-            var decodedUrl = decodeURIComponent(url);
-            $.get(url).done(function (data) {
-                placeHoderElement.html(data);
-                placeHoderElement.find('.modal').modal('show');
-            })
-        })
-        placeHoderElement.on('click', '[data-save="modal"]', function (event) {
-
-            let IsValid = Validate("Add-employee");
-            if (IsValid == true) {
-                var form = $(this).parents(".modal").find('#myForm');
-                var actionurl = $('#myForm').attr('action')
-                var sendData = new FormData(form[0]);
-
-                $.ajax({
-                    url: actionurl,
-                    type: "POST",
-                    data: sendData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        placeHoderElement.find(".modal").modal("hide");
-                    }
-                })
-                loaddata();
-            }
-            else {
-                placeHoderElement.find(".modal").modal("show");
-            }
-        })
-})
-
-
-
-

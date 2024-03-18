@@ -1,6 +1,5 @@
 ﻿@model EmployeeModelView;
 <partial name="_Notification" />
-@* <script src="~/js/Employee.js"></script> *@
 <script src="~/js/Validate.js"></script>
 
 <div id="employeeAddAndEdit"
@@ -11,7 +10,7 @@
         <div class="row g-3 modal-header card-header">
                     <div id="modelTitle" class="model-Title card-title col-md-11">@(Model.Id != null ? "Update" : "Create") EmployeeData</div>
             <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" id="close" aria-label="Close"></button>
         </div>
     </h2>
     

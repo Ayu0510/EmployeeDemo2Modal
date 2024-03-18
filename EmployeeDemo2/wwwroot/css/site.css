@@ -73,13 +73,21 @@ body {
 
 .sortAncer{
     text-decoration: none;
+    color:white;
+    border:none;
+    font-size: 20px;
     text-justify: auto;
     font-weight: bold;
     font-variant-caps: normal;
 }
 
+.SearchText{
+    color:white;
+}
+
 .SearchText:hover, .SearchText:active {
-    transform: scale(1.05);
+    transform: scale(1.02);
+    color: white;
 }
 
 img:hover {
@@ -95,7 +103,7 @@ label{
 }
 
 a:hover ,button:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .form-control, .form-select, option, li.list-group-item {
@@ -108,10 +116,11 @@ a:hover ,button:hover{
     width: 100%;
     margin: 20px auto;
     tr{
-        &.child{
-            &.hidden{
+        &.child
+{
+    background: rgba(0,0,0,0.3);
+    &.hidden{
                 display: none;
-                color:white;
             }
         }
     }
@@ -131,8 +140,9 @@ table {
     }
 
     table.fold-table > tbody > tr.view td, table.fold-table > tbody > tr.view th {
-        cursor: pointer;
         color:white;
+        font-weight: bold;
+        font-size: 15px;
     }
 
         table.fold-table > tbody > tr.view td:first-child,
@@ -211,6 +221,7 @@ table {
     backdrop-filter: blur(100%);
     position: absolute;
     width: 100%;
+    cursor: wait;
     height: 100%;
 }
 
@@ -224,7 +235,9 @@ table {
     margin: -76px 0 0 -76px;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid blue;
+    border-right: 16px solid green;
+    border-bottom: 16px solid red;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }

@@ -9,7 +9,7 @@
     <input class="form-control bg-transparent SearchText" type="search" placeholder="Search" name="SearchText" id="search">
     <button class="btn btn-white bg-transparent text-white form-control" type="button" onclick="paginationFunction()">Search</button>
 </form>
-<button onclick="paginationFunction()" type="button" class="btn text-bg-dark bg-transparent form-control">Show all</button>
+<button onclick="paginationFunction('ShowAll')" type="button" class="btn text-bg-dark bg-transparent form-control">Show all</button>
 <div class="wrapper">
     <div id="PlaceHolder"></div>
     <div class="table-resposive">
@@ -35,7 +35,7 @@
                     </th>
                             
                     <th class="text-center" scope="col"><button class="sortAncer bg-transparent" onclick="nameSort('Gender')">Gender</button></th>
-                    <th class="text-center" scope="col">Action</th>
+                    <th class="text-center" scope="col"><label class="sortAncer">Action</label></th>
                     @* <th></th> *@
                 </tr>
             </thead>
@@ -82,12 +82,12 @@
             </tbody>
         </table>
         <div class="data-container"></div>
-        <div class="bg-white float" id="demo"></div>
+        <div class="bg-primary" id="demo"></div>
     </div>
 </div>
 
-<div class="bg-white" id="demo">
-@*     @if(pager.TotalPages > 0)
+@* <div class="bg-white" id="demo">
+    @if(pager.TotalPages > 0)
     {
         <ul class="pagination container justify-content-end">
             @for (var pge = pager.StartPage; pge <= pager.EndPage;pge++)
@@ -97,5 +97,5 @@
                 </li>
             }
         </ul>
-    } *@
-</div>
+    }
+</div> *@
