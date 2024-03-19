@@ -20,6 +20,7 @@ function paginationFunction(URL = '/Employee/GetAllEmployee') {
                 dataSource: data,
                 locator:'data',
                 pageSize: 5,
+                showPageNumbers: true,
                 callback: function (data, pagination) {
                     var html = '';
                     $('#employeedisplay').empty();

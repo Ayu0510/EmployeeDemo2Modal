@@ -33,69 +33,14 @@
                             <li> <button class="sortAncer bg-transparent nav-link" onclick="nameSort('Jr_Developer')">Jr_Developer</button></li>
                         </ul>
                     </th>
-                            
                     <th class="text-center" scope="col"><button class="sortAncer bg-transparent" onclick="nameSort('Gender')">Gender</button></th>
                     <th class="text-center" scope="col"><label class="sortAncer">Action</label></th>
-                    @* <th></th> *@
                 </tr>
             </thead>
             <tbody id="employeedisplay" class="displaydata animate__animated animate__fadeInDown animate__fast float-right">
-               @*  @if (Model != null)
-                {
-                    @foreach (var employee in Model)
-                    {
-                        <tr class="view">
-                            <td class="text-center"><button class="btn-light btn-outline-light rounded-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-@employee.Id" aria-expanded="false" aria-controls="collapseExample-@employee.Id"><i class="bi bi-plus-circle-fill"></i></button></td>
-                            <td class="text-center"><img src="Image/@employee.Image" height="80" width="80"> @employee.FirstName @employee.LastName</td>
-                            <td class="text-center">@employee.Email</td>
-                            <td class="text-center">@employee.Designation</td>
-                            <td class="text-center">@employee.Gender</td>
-                            <td class="text-center">
-                                @Html.ActionLink("", "Upsert", new
-                                    {
-                                        id = employee.Id
-                                    }, new { @class = "btn btn-success text-center bi bi-pencil-square" })
-                                <button type="button" class="btn text-center btn-success bi bi-pencil-square" data-toggle="ajax-modal" data-target="#employeeAddAndEdit" data-url="@Url.Action("UpSertPartial/" + employee.Id)">
-                                    modal
-                                </button>
-                                    <button class = "btn text-center btn-danger bi bi-trash-fill" onclick = "deleteEmployeeAlert('Employee/Delete/@employee.Id')" type = "button"></button>
-                            </td>
-                            @* <td>
-                                <div class="collapse" id="collapseExample-@employee.Id">
-                                    <div><label>DateOfBirth:</label>@employee.DateOfBirth</div>
-                                    <div><label>DateOfJoining:</label>@employee.DateOfJoining</div>
-                                    <div><label>Skills:</label>@employee.SkillNames</div>
-                                    <div><label>Description:</label>@employee.Description</div>
-                                </div>
-                            </td> 
-                        </tr>
-                        <tr class="fold">
-                            <td colspan="3">
-                                <div>DateOfBirth:  @employee.DateOfBirth</div>
-                                <div>DateOfJoining:  @employee.DateOfJoining</div>
-                                <div>Skills:  @employee.SkillNames</div>
-                                <div>Description:  @employee.Description</div>
-                            </td>
-                        </tr>
-                    }
-                } *@
             </tbody>
         </table>
         <div class="data-container"></div>
         <div class="bg-primary" id="demo"></div>
     </div>
 </div>
-
-@* <div class="bg-white" id="demo">
-    @if(pager.TotalPages > 0)
-    {
-        <ul class="pagination container justify-content-end">
-            @for (var pge = pager.StartPage; pge <= pager.EndPage;pge++)
-            {
-                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                    <button type="button" class="page-link" onclick=" pagination('/Employee/IndexApi?pg=@pge')">@pge</button>
-                </li>
-            }
-        </ul>
-    }
-</div> *@

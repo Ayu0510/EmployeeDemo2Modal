@@ -43,10 +43,6 @@ $(document).ready(function () {
             $('#PlaceHolder').find('.modal').modal('show');  
         });
     }
-
-    $(".fold-table .view").on("click", function () {
-        $(this).toggleClass("open").next(".fold").toggleClass("open");
-    });
 });
 var flag = 1;
 function nameSort(type) {
@@ -68,15 +64,15 @@ function nameSort(type) {
 $(function () {
 
     var placeHoderElement = $('#PlaceHolder');
-    $('button[data-toggle="ajax-modal"]').click(function (event) {
-        var url = $(this).data('url');
-        var decodedUrl = decodeURIComponent(url);
-        $.get(decodedUrl).done(function (data) {
-            skillArray();
-            placeHoderElement.html(data);
-            placeHoderElement.find('.modal').modal('show');
-        })
-    })
+    //$('button[data-toggle="ajax-modal"]').click(function (event) {
+    //    var url = $(this).data('url');
+    //    var decodedUrl = decodeURIComponent(url);
+    //    $.get(decodedUrl).done(function (data) {
+    //        skillArray();
+    //        placeHoderElement.html(data);
+    //        placeHoderElement.find('.modal').modal('show');
+    //    })
+    //})
     placeHoderElement.on('click', '[data-save="modal"]', function (event) {
         
         let IsValid = Validate("Add-employee");

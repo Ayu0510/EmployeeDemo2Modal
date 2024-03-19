@@ -9,14 +9,12 @@
     <h2 class="p-4">
         <div class="row g-3 modal-header card-header">
                     <div id="modelTitle" class="model-Title card-title col-md-11">@(Model.Id != null ? "Update" : "Create") EmployeeData</div>
-            <!-- <i id="closeForm" class="fa-sharp fa-solid fa-rectangle-xmark col-md-1 float-right"></i> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" id="close" aria-label="Close"></button>
         </div>
     </h2>
     
     <div class="Add-employee modal-body card-body">
         <form asp-controller="Employee" asp-action="UpSertPartial" class="row g-3" id="myForm" method="post" enctype="multipart/form-data">
-            @* <div asp-validation-summary="All" class="text-danger"></div> *@
             @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @type = "hidden" } })
             @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @type = "hidden" } })
             <div class="col-md-6 row g-3">
